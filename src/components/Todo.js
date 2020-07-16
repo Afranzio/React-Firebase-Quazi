@@ -1,11 +1,16 @@
 import React from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core'
+import { Button } from '@material-ui/core'
+import { List, ListItem, ListItemText } from '@material-ui/core';
+
+import db from '../firebase';
 
 const Todo = (props) => {
     return(
-        <List>
+        <List key={Date.now()}>
             <ListItem>
-                <ListItemText primary={props.text} />
+                <ListItemText key={props.text.id} primary={props.text.todo} />
+                <Button variant='contained' color='primary' 
+            onClick={ event => (db.collection('todos').doc(props.text.id).delete())}>Delete</Button>
             </ListItem>
         </List>
     );
